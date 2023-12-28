@@ -10,9 +10,9 @@
 import * as functions from "firebase-functions";
 import express from "express";
 import cors from "cors";
-import { plantRouter } from "./routes/plantsRoutes";
-// import items from "./routes/items";
-// import shoutouts from "./routes/shoutout";
+import plantRouter from "./routes/plantsRoutes";
+import userRouter from "./routes/userRoutes";
+import userPlantRouter from "./routes/userPlantRoutes";
 
 // CONFIG
 
@@ -23,8 +23,8 @@ app.use(express.json());
 // ROUTES
 
 app.use("/plants", plantRouter);
-// app.use("/items", items);
-// app.use("/shoutouts", shoutouts);
+app.use("/users", userRouter);
+app.use("/user/:userId/plants", userPlantRouter);
 
 // EXPORT API
 

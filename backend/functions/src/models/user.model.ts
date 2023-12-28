@@ -11,6 +11,7 @@ const userSchema = new Schema<User>(
     profilePhotoUrl: {
       type: String,
     },
+    location: { type: String },
   },
   { timestamps: true }
 );

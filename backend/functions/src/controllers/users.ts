@@ -67,6 +67,7 @@ export const updateUser: ReqRes = async (req, res) => {
       photoURL,
       profileDescription,
       profilePhotoUrl,
+      location,
     } = req.body;
     const user = await userModel.findById(req.params.id);
     if (!user) throw new UserNotFoundError();
@@ -75,6 +76,7 @@ export const updateUser: ReqRes = async (req, res) => {
     user.photoURL = photoURL;
     user.profileDescription = profileDescription;
     user.profilePhotoUrl = profilePhotoUrl;
+    user.location = location;
     await user.save();
 
     res.status(200).send(user);
