@@ -4,12 +4,13 @@ import {
   getUser,
   getUsers,
   getUsersByCriteria,
+  postUser,
   updateUser,
 } from "../controllers/users";
 
 const userRouter = express.Router();
 
-userRouter.post("/");
+userRouter.post("/", postUser);
 userRouter.get("/", getUsersByCriteria);
 userRouter.get("/", getUsers);
 userRouter.get("/:id", getUser);

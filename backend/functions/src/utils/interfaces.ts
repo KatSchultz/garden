@@ -28,6 +28,7 @@ export interface User {
   uid: string;
   profileDescription: string;
   profilePhotoUrl: string;
+  location: string;
   createdAt: string;
   updatedAt: string;
 }
