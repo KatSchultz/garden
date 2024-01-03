@@ -24,7 +24,7 @@ app.use(express.json());
 
 app.use("/plants", plantRouter);
 app.use("/users", userRouter);
-app.use("/user/:userId/plants", userPlantRouter);
+app.use("/users/:userId/plants", userPlantRouter);
 
 // EXPORT API
 

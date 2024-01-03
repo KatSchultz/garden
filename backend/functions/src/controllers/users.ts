@@ -9,7 +9,7 @@ export const postUser: ReqRes = async (req, res) => {
     const existingUser = await userModel.find({ uid: req.body.uid });
     if (existingUser.length > 0) return;
     else {
-      const user = new userModel(req.body);
+      const user = await userModel.create(req.body);
       await user.save();
       res.status(201).send(user);
     }
