@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { User } from "./models/user";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -16,9 +17,17 @@ export const auth = getAuth(app);
 
 const authProvider = new GoogleAuthProvider();
 
-export function signInWithGoogle(): void {
-  signInWithPopup(auth, authProvider);
-}
+export const signInWithGoogle = async (): Promise<Partial<User>> => {
+  const authCredential = await signInWithPopup(auth, authProvider);
+  const { email, displayName, photoURL, uid } = authCredential.user;
+  return {
+    email: email || "",
+    displayName: displayName || "",
+    photoURL: photoURL || "",
+    uid: uid || "",
+  };
+};
+
 export function signOut(): void {
   auth.signOut();
 }
