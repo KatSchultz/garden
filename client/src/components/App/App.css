@@ -1,4 +1,9 @@
 .app {
   min-height: 100vh;
   min-width: 100vw;
+  padding: 0.5rem;
+}
+
+.app__contents {
+  margin-top: 3.5rem;
 }
