@@ -3,9 +3,11 @@ import { signInWithGoogle, signOut } from "../../firebaseConfig";
 import AuthContext from "../../context/AuthContext";
 import { addUser } from "../../services/user";
 import { User } from "../../models/user";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
   const handleLogin = async () => {
     await signInWithGoogle().then((data: Partial<User>) => {
       addUser({
@@ -19,6 +21,7 @@ const Login = () => {
         location: "",
       });
     });
+    navigate("/");
   };
   const handleLogout = async () => {
     await signOut();
