@@ -8,8 +8,12 @@ import Plants from "../Plants/Plants";
 import Plant from "../Plant/Plant";
 import NavMenu from "../NavMenu/NavMenu";
 import Login from "../Login/Login";
+import { useContext } from "react";
+import AuthContext from "../../context/AuthContext";
 
 const App = () => {
+  const { user } = useContext(AuthContext);
+  console.log(user);
   return (
     <div className="app">
       <Router>

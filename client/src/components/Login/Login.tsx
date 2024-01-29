@@ -2,14 +2,14 @@ import { useContext } from "react";
 import { signInWithGoogle, signOut } from "../../firebaseConfig";
 import AuthContext from "../../context/AuthContext";
 import { addUser } from "../../services/user";
-import { User } from "../../models/user";
+import { UserProfile } from "../../models/user";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const handleLogin = async () => {
-    await signInWithGoogle().then((data: Partial<User>) => {
+    await signInWithGoogle().then((data: Partial<UserProfile>) => {
       addUser({
         ...data,
         email: data.email || "",
