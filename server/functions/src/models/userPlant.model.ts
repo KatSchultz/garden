@@ -3,7 +3,7 @@ import { UserPlant } from "../utils/interfaces";
 
 const userPlantSchema = new Schema<UserPlant>({
   plant_id: { type: String },
-  uid: { type: String, required: true },
+  user_id: { type: String, required: true },
   have: { type: Boolean },
   want: { type: Boolean },
   location: { type: String },

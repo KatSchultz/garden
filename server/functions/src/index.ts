@@ -13,6 +13,7 @@ import cors from "cors";
 import plantRouter from "./routes/plantsRoutes";
 import userRouter from "./routes/userRoutes";
 import userPlantRouter from "./routes/userPlantRoutes";
+// import authRouter from "./routes/authRouter";
 
 // CONFIG
 

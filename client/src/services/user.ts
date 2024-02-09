@@ -1,24 +1,31 @@
 import axios from "axios";
-import { User } from "../models/user";
+import { UserProfile } from "../models/user";
 
 const baseUrl = import.meta.env.VITE_API_URL || "";
 
-export const addUser = async (user: User): Promise<Partial<User>> => {
-  console.log(user);
-  console.log("baseUrl: ", baseUrl);
+export const addUser = async (
+  user: UserProfile
+): Promise<Partial<UserProfile>> => {
   const newUser = await axios.post(baseUrl + "/users", user);
   return newUser.data;
 };
 
-export const getUser = async (uid: string): Promise<User> => {
-  const user = await axios.get(baseUrl + `/users/${encodeURIComponent(uid)}`);
+export const getUser = async (_id: string): Promise<UserProfile> => {
+  const user = await axios.get(baseUrl + `/users/${encodeURIComponent(_id)}`);
   return user.data;
 };
 
-export const updateUser = async (updatedInfo: User): Promise<User> => {
+export const updateUser = async (
+  updatedInfo: UserProfile
+): Promise<UserProfile> => {
   const updatedUser = await axios.put(
-    baseUrl + `/user/${updatedInfo.uid}`,
+    baseUrl + `/users/${updatedInfo._id}`,
     updatedInfo
   );
   return updatedUser.data;
+};
+
+export const getUserByUid = async (uid: string): Promise<UserProfile> => {
+  const user = await axios.get(baseUrl + `/users/login/${uid}`);
+  return user.data;
 };

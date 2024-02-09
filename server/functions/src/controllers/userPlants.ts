@@ -7,9 +7,9 @@ import { ReqRes, ReqResNext } from "../utils/interfaces";
 
 export const postUserPlant: ReqRes = async (req, res) => {
   try {
-    await establishConnection();
+    establishConnection();
     const userPlant = await userPlantModel.create(req.body);
-    console.log(userPlant);
+    await userPlant.save();
     res.status(201).send(userPlant);
   } catch (err) {
     res.status(401).send("Bad Request");
@@ -58,11 +58,10 @@ export const getUserPlant: ReqRes = async (req, res) => {
 export const updateUserPlant: ReqRes = async (req, res) => {
   try {
     establishConnection();
-    const { plant_id, uid, have, want, location, comment } = req.body;
+    const { plant_id, have, want, location, comment } = req.body;
     const userPlant = await userPlantModel.findById(req.params.id);
     if (!userPlant) throw new UserPlantNotFoundError();
     userPlant.plant_id = plant_id;
-    userPlant.uid = uid;
     userPlant.have = have;
     userPlant.want = want;
     userPlant.location = location;

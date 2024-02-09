@@ -1,6 +1,6 @@
 export interface UserPlant {
   plant_id: string;
-  uid: string;
+  user_id: string;
   have: boolean;
   want: boolean;
   location: string;
