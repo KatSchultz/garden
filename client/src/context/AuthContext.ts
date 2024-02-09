@@ -1,17 +1,31 @@
 import { User } from "firebase/auth";
 import { createContext } from "react";
-// import { UserProfile } from "../models/user";
+import { UserProfile } from "../models/user";
+import { UserPlant } from "../models/userPlant";
 
 export interface AuthContextModel {
   user: User | null; // null when not logged in
-  // userProfile: UserProfile;
+  userProfile: UserProfile | null;
+  setUserProfile: (userProfile: UserProfile) => void;
+  userPlants: UserPlant[];
+  setUserPlants: (userPlants: UserPlant[]) => void;
 }
 
 const defaultValue: AuthContextModel = {
   user: null,
-  // userProfile: {
-
-  // }
+  userProfile: {
+    _id: "",
+    email: "",
+    displayName: "",
+    photoURL: "",
+    uid: "",
+    profileDescription: "",
+    profilePhotoUrl: "",
+    location: "",
+  },
+  setUserProfile: () => {},
+  userPlants: [],
+  setUserPlants: () => {},
 };
 
 const AuthContext = createContext(defaultValue);

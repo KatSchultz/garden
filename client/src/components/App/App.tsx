@@ -12,8 +12,9 @@ import { useContext } from "react";
 import AuthContext from "../../context/AuthContext";
 
 const App = () => {
-  const { user } = useContext(AuthContext);
-  console.log(user);
+  const { user, userProfile } = useContext(AuthContext);
+  console.log("userProfile: ", userProfile);
+  console.log("user: ", user);
   return (
     <div className="app">
       <Router>
@@ -24,10 +25,22 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/search" element={<Search />} />
-            <Route path="/plants" element={<Plants />} />
+            <Route
+              path="/plants"
+              element={<Plants isUserPlants={false} userId={null} />}
+            />
             <Route path="/plants/:id" element={<Plant />} />
             <Route path="/users/:userId" element={<Profile />} />
-            <Route path="/users/:userId/plants" element={<Plants />} />
+
+            <Route
+              path="/users/:userId/plants"
+              element={
+                <Plants
+                  isUserPlants
+                  userId={userProfile ? userProfile._id : ""}
+                />
+              }
+            />
             <Route path="/users/:userId/plants/:id" element={<Plant />} />
           </Routes>
         </div>

@@ -4,7 +4,7 @@ import AuthContext from "../../context/AuthContext";
 import "./NavMenu.css";
 
 const NavMenu = () => {
-  const { user } = useContext(AuthContext) || "";
+  const { userProfile } = useContext(AuthContext) || "";
 
   return (
     <nav className="nav">
@@ -16,10 +16,14 @@ const NavMenu = () => {
           <Link to={"/search"}>Search</Link>
         </li>
         <li className="nav__list--item">
-          <Link to={user ? `/users/${user.uid}` : "/login"}>Profile</Link>
+          <Link to={userProfile ? `/users/${userProfile._id}` : "/login"}>
+            Profile
+          </Link>
         </li>
         <li className="nav__list--item">
-          <Link to={user ? `/users/${user.uid}/plants` : "/login"}>
+          <Link
+            to={userProfile ? `/users/${userProfile._id}/plants` : "/login"}
+          >
             My Plants
           </Link>
         </li>

@@ -7,7 +7,7 @@ export const postUser: ReqRes = async (req, res) => {
   try {
     await establishConnection();
     const existingUser = await userModel.find({ uid: req.body.uid });
-    if (existingUser.length > 0) return;
+    if (existingUser.length > 0) res.status(200).send(existingUser[0]);
     else {
       const user = await userModel.create(req.body);
       await user.save();
@@ -51,6 +51,16 @@ export const getUser: ReqRes = async (req, res) => {
   try {
     await establishConnection();
     const user = await userModel.findById(req.params.id);
+    res.status(200).send(user);
+  } catch (err) {
+    res.status(500).send("Server Error");
+  }
+};
+
+export const getUserByUid: ReqRes = async (req, res) => {
+  try {
+    await establishConnection();
+    const user = await userModel.findOne({ uid: req.params.uid });
     res.status(200).send(user);
   } catch (err) {
     res.status(500).send("Server Error");
