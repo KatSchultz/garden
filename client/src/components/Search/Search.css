@@ -1,0 +1,22 @@
+.form--content {
+  display: flex;
+  flex-direction: column;
+}
+
+.form--content__input {
+  background-color: #c9ffd5;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+}
+.form--content__input__label {
+  min-width: 100%;
+}
+
+@media only screen and (min-width: 768px) {
+  .form--content {
+    /* flex-direction: row; */
+  }
+}
