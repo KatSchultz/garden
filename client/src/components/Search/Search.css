@@ -4,15 +4,23 @@
 }
 
 .form--content__input {
-  background-color: #c9ffd5;
   display: flex;
   justify-content: space-between;
-  padding: 0.5rem;
   margin-bottom: 1rem;
-  border-radius: 0.5rem;
 }
 .form--content__input__label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #c9ffd5;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  align-items: end;
   min-width: 100%;
+}
+.form--content__input__checkbox {
+  position: relative;
+  right: 1.5rem;
 }
 
 @media only screen and (min-width: 768px) {
