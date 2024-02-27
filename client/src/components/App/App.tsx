@@ -12,9 +12,8 @@ import { useContext } from "react";
 import AuthContext from "../../context/AuthContext";
 
 const App = () => {
-  const { user, userProfile } = useContext(AuthContext);
-  console.log("userProfile: ", userProfile);
-  console.log("user: ", user);
+  const { userProfile } = useContext(AuthContext);
+
   return (
     <div className="app">
       <Router>

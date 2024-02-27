@@ -1,9 +1,18 @@
 export interface PlantFilter {
-  full: false;
-  part: false;
-  shade: false;
+  full: boolean;
+  part: boolean;
+  shade: boolean;
 
-  dry: false;
-  ave: false;
-  wet: false;
+  dry: boolean;
+  ave: boolean;
+  wet: boolean;
+}
+export interface PlantParams {
+  full?: string;
+  part?: string;
+  shade?: string;
+
+  dry?: string;
+  ave?: string;
+  wet?: string;
 }

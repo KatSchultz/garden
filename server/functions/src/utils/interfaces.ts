@@ -20,6 +20,15 @@ export interface Plant {
   img: { url: string; credit: string };
 }
 
+export interface PlantFilter {
+  "sun.full"?: boolean;
+  "sun.part"?: boolean;
+  "sun.shade"?: boolean;
+  "moisture.dry"?: boolean;
+  "moisture.ave"?: boolean;
+  "moisture.wet"?: boolean;
+}
+
 export interface User {
   id?: string;
   email: string;

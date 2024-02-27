@@ -4,7 +4,7 @@ import {
   //   deletePlant,
   getPlant,
   getPlants,
-  //   getPlantsByCriteria,
+  getPlantsByCriteria,
   //   getPlantsByUid,
   //   updatePlant,
 } from "../controllers/plants";
@@ -15,7 +15,7 @@ const plantRouter = express.Router();
 
 plantRouter.route("/").get(getPlants).post(postPlant);
 
-// plantRouter.route("/search").get(getPlantsByCriteria);
+plantRouter.route("/search").get(getPlantsByCriteria);
 
 plantRouter.route("/:id").get(getPlant);
 

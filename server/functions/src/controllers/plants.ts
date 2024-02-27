@@ -1,7 +1,7 @@
 import establishConnection from "../establishConnection";
 import { plantModel } from "../models/plant.model";
 import { PlantNotFoundError } from "../utils/errors";
-import { ReqRes, ReqResNext } from "../utils/interfaces";
+import { PlantFilter, ReqRes, ReqResNext } from "../utils/interfaces";
 
 // CREATE
 
@@ -20,11 +20,35 @@ export const postPlant: ReqRes = async (req, res) => {
 export const getPlantsByCriteria: ReqResNext = async (req, res, next) => {
   try {
     establishConnection();
+    console.log("req.query: ", req.query);
     if (Object.keys(req.query).length <= 0) next();
-    // else{
-    //   let plants = await
-    // }
-  } catch (err) {}
+    else {
+      // let plants = await plantModel.find();
+      let customQuery: Partial<PlantFilter> = {};
+      if (req.query && req.query.full) {
+        customQuery = { ...customQuery, "sun.full": true };
+      }
+      if (req.query && req.query.part) {
+        customQuery = { ...customQuery, "sun.part": true };
+      }
+      if (req.query && req.query.shade) {
+        customQuery = { ...customQuery, "sun.shade": true };
+      }
+      if (req.query && req.query.dry) {
+        customQuery = { ...customQuery, "moisture.dry": true };
+      }
+      if (req.query && req.query.ave) {
+        customQuery = { ...customQuery, "moisture.ave": true };
+      }
+      if (req.query && req.query.wet) {
+        customQuery = { ...customQuery, "moisture.wet": true };
+      }
+      const plants = await plantModel.find(customQuery);
+      res.status(200).send(plants);
+    }
+  } catch (err) {
+    res.status(500).send("Server Error");
+  }
 };
 
 // READ
