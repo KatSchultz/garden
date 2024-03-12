@@ -25,6 +25,17 @@ export const updateUser = async (
   return updatedUser.data;
 };
 
+export const updateTrefleToken = async (
+  profile: UserProfile
+): Promise<UserProfile> => {
+  const updatedUser = await axios.put(
+    baseUrl + "/users/trefle-search/" + profile._id,
+    profile
+  );
+  console.log("update token: ", updatedUser.data);
+  return updatedUser.data;
+};
+
 export const getUserByUid = async (uid: string): Promise<UserProfile> => {
   const user = await axios.get(baseUrl + `/users/login/${uid}`);
   return user.data;

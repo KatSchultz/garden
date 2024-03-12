@@ -38,6 +38,8 @@ export interface User {
   profileDescription: string;
   profilePhotoUrl: string;
   location: string;
+  trefleToken: string;
+  trefleTokenExp: string;
   createdAt: string;
   updatedAt: string;
 }

@@ -7,6 +7,7 @@ import {
   getUsersByCriteria,
   postUser,
   updateUser,
+  updateUserToken,
 } from "../controllers/users";
 
 const userRouter = express.Router();
@@ -18,5 +19,6 @@ userRouter.get("/login/:uid", getUserByUid);
 userRouter.get("/:id", getUser);
 userRouter.put("/:id", updateUser);
 userRouter.delete("/:id", deleteUser);
+userRouter.put("/trefle-search/:id", updateUserToken);
 
 export default userRouter;

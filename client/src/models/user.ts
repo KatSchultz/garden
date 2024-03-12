@@ -8,7 +8,7 @@ export interface UserProfile {
   profilePhotoUrl: string;
   location: string;
   trefleToken?: string;
-  trefleExpiration?: string;
+  trefleTokenExp?: string;
   createdAt?: string;
   updatedAt?: string;
 }

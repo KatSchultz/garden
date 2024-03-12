@@ -16,6 +16,10 @@ const NavMenu = () => {
           <Link to={"/search"}>Search</Link>
         </li>
         <li className="nav__list--item">
+          <Link to={"/trefle-search"}>Search Trefle</Link>
+        </li>
+
+        <li className="nav__list--item">
           <Link to={userProfile ? `/users/${userProfile._id}` : "/login"}>
             Profile
           </Link>

@@ -8,26 +8,26 @@ export const postUser: ReqRes = async (req, res) => {
     await establishConnection();
     const existingUser = await userModel.find({ uid: req.body.uid });
 
-    let token;
-    let expiration;
+    // let token;
+    // let expiration;
 
-    await retrieveToken().then((data) => {
-      token = data.token;
-      expiration = data.expiration;
-    });
+    // await retrieveToken().then((data) => {
+    //   token = data.token;
+    //   expiration = data.expiration;
+    // });
 
     if (existingUser.length > 0) {
       const thisUser = {
         ...existingUser[0],
-        trefleToken: token,
-        trefleExpiration: expiration,
+        // trefleToken: token,
+        // trefleTokenExp: expiration,
       };
       res.status(200).send(thisUser);
     } else {
       const user = await userModel.create({
         ...req.body,
-        trefleToken: token,
-        trefleExpiration: expiration,
+        // trefleToken: token,
+        // trefleTokenExp: expiration,
       });
       await user.save();
       res.status(201).send(user);
@@ -114,6 +114,8 @@ export const updateUser: ReqRes = async (req, res) => {
       profileDescription,
       profilePhotoUrl,
       location,
+      trefleToken,
+      trefleTokenExp,
     } = req.body;
     const user = await userModel.findById(req.params.id);
     if (!user) throw new UserNotFoundError();
@@ -123,9 +125,94 @@ export const updateUser: ReqRes = async (req, res) => {
     user.profileDescription = profileDescription;
     user.profilePhotoUrl = profilePhotoUrl;
     user.location = location;
+    user.trefleToken = trefleToken;
+    user.trefleTokenExp = trefleTokenExp;
     await user.save();
 
     res.status(200).send(user);
+  } catch (err) {
+    let status = { code: 500, message: "Server Error" };
+    if (err instanceof UserNotFoundError) {
+      status = { code: 404, message: "User Not Found" };
+    }
+    res.status(status.code).send(status.message);
+  }
+};
+
+export const updateUserToken: ReqRes = async (req, res) => {
+  try {
+    await establishConnection();
+    console.log("update token called");
+    const {
+      email,
+      displayName,
+      photoURL,
+      profileDescription,
+      profilePhotoUrl,
+      location,
+      trefleTokenExp,
+    } = req.body;
+    console.log("trefle expiration: ", trefleTokenExp);
+
+    // if user doesn't have a token yet:
+    if (trefleTokenExp === undefined) {
+      let token = "";
+      let expiration = "";
+
+      await retrieveToken().then((data) => {
+        token = data.token;
+        expiration = data.expiration;
+      });
+
+      const user = await userModel.findById(req.params.id);
+
+      if (!user) throw new UserNotFoundError();
+      user.email = email;
+      user.displayName = displayName;
+      user.photoURL = photoURL;
+      user.profileDescription = profileDescription;
+      user.profilePhotoUrl = profilePhotoUrl;
+      user.location = location;
+      user.trefleToken = token;
+      user.trefleTokenExp = expiration;
+      await user.save();
+
+      res.status(200).send(user);
+    } else {
+      // is user has token expiration
+      const rightNow = new Date();
+      const expiration = new Date(trefleTokenExp);
+      console.log("right now: ", rightNow);
+      console.log("expiration: ", expiration);
+
+      if (rightNow < expiration) {
+        console.log("token is current, expiration: ", expiration);
+        res.status(200).send(req.body);
+      } else {
+        let token = "";
+        let expiration = "";
+
+        await retrieveToken().then((data) => {
+          token = data.token;
+          expiration = data.expiration;
+        });
+
+        const user = await userModel.findById(req.params.id);
+
+        if (!user) throw new UserNotFoundError();
+        user.email = email;
+        user.displayName = displayName;
+        user.photoURL = photoURL;
+        user.profileDescription = profileDescription;
+        user.profilePhotoUrl = profilePhotoUrl;
+        user.location = location;
+        user.trefleToken = token;
+        user.trefleTokenExp = expiration;
+        await user.save();
+
+        res.status(200).send(user);
+      }
+    }
   } catch (err) {
     let status = { code: 500, message: "Server Error" };
     if (err instanceof UserNotFoundError) {

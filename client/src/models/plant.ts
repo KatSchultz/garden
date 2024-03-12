@@ -3,6 +3,7 @@ export interface Plant {
   region: string[];
   name_scientific: string;
   name_common: string;
+  common_name?: string;
   flower_color: string;
   sun: {
     full: boolean;

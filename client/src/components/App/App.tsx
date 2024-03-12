@@ -10,22 +10,10 @@ import NavMenu from "../NavMenu/NavMenu";
 import Login from "../Login/Login";
 import { useContext } from "react";
 import AuthContext from "../../context/AuthContext";
-import { getTrefflePlants } from "../../services/treffle";
+import TrefleSearch from "../TrefleSearch/TrefleSearch";
 
 const App = () => {
   const { userProfile } = useContext(AuthContext);
-
-  if (userProfile?.trefleToken) {
-    getTrefflePlants(userProfile?.trefleToken);
-  }
-
-  // const [trefflePlants, setTrefflePlants] = useState<Partial<PlantModel[]>>([]);
-  // useEffect(() => {
-  //   if (userProfile) {
-  //     userToken = userProfile.trefleToken || "";
-  //     getTrefflePlants(userProfile.trefleToken);
-  //   }
-  // }, []);
 
   return (
     <div className="app">
@@ -42,6 +30,7 @@ const App = () => {
               element={<Plants isUserPlants={false} userId={null} />}
             />
             <Route path="/plants/:id" element={<Plant />} />
+            <Route path="/trefle-search" element={<TrefleSearch />} />
             <Route path="/users/:userId" element={<Profile />} />
 
             <Route

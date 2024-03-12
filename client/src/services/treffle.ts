@@ -19,5 +19,5 @@ export const getTrefflePlants = async (
   //   },
   // });
   console.log("Plants in trefle calls: ", plants.data.data);
-  return plants.data;
+  return plants.data.data;
 };
