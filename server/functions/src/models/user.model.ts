@@ -12,6 +12,8 @@ const userSchema = new Schema(
       type: String,
     },
     location: { type: String },
+    trefleToken: { type: String },
+    trefleTokenExp: { type: String },
   },
   { timestamps: true }
 );

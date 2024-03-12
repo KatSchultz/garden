@@ -1,5 +1,5 @@
 export interface UserProfile {
-  _id: string;
+  _id?: string;
   email: string | null;
   displayName: string | null;
   photoURL: string | null;
@@ -7,6 +7,8 @@ export interface UserProfile {
   profileDescription: string;
   profilePhotoUrl: string;
   location: string;
+  trefleToken?: string;
+  trefleExpiration?: string;
   createdAt?: string;
   updatedAt?: string;
 }

@@ -10,6 +10,7 @@ const Login = () => {
   const navigate = useNavigate();
   const handleLogin = async () => {
     await signInWithGoogle().then((data: Partial<UserProfile>) => {
+      console.log(data);
       addUser({
         ...data,
         email: data.email || "",

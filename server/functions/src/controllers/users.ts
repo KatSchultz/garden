@@ -7,15 +7,49 @@ export const postUser: ReqRes = async (req, res) => {
   try {
     await establishConnection();
     const existingUser = await userModel.find({ uid: req.body.uid });
-    if (existingUser.length > 0) res.status(200).send(existingUser[0]);
-    else {
-      const user = await userModel.create(req.body);
+
+    let token;
+    let expiration;
+
+    await retrieveToken().then((data) => {
+      token = data.token;
+      expiration = data.expiration;
+    });
+
+    if (existingUser.length > 0) {
+      const thisUser = {
+        ...existingUser[0],
+        trefleToken: token,
+        trefleExpiration: expiration,
+      };
+      res.status(200).send(thisUser);
+    } else {
+      const user = await userModel.create({
+        ...req.body,
+        trefleToken: token,
+        trefleExpiration: expiration,
+      });
       await user.save();
       res.status(201).send(user);
     }
   } catch (err) {
     res.status(400).send("Bad Request");
   }
+};
+
+export const retrieveToken = async () => {
+  const params = {
+    origin: "http://localhost:5173",
+    token: "FI41Nzk8mhe1yfab85oGBf37Ipt-Dq7S0Ah0rb1_BFk",
+  };
+
+  const response = await fetch("https://trefle.io/api/auth/claim", {
+    method: "post",
+    body: JSON.stringify(params),
+    headers: { "Content-Type": "application/json" },
+  });
+  const json = await response.json();
+  return json;
 };
 
 export const getUsersByCriteria: ReqResNext = async (req, res, next) => {
@@ -41,6 +75,7 @@ export const getUsers: ReqRes = async (req, res) => {
     await establishConnection();
 
     const users = await userModel.find();
+
     res.status(200).send(users);
   } catch (err) {
     res.status(500).send("Server Error");
@@ -61,6 +96,7 @@ export const getUserByUid: ReqRes = async (req, res) => {
   try {
     await establishConnection();
     const user = await userModel.findOne({ uid: req.params.uid });
+    console.log("user in re-login: ", user);
     res.status(200).send(user);
   } catch (err) {
     res.status(500).send("Server Error");

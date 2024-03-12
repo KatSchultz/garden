@@ -10,9 +10,22 @@ import NavMenu from "../NavMenu/NavMenu";
 import Login from "../Login/Login";
 import { useContext } from "react";
 import AuthContext from "../../context/AuthContext";
+import { getTrefflePlants } from "../../services/treffle";
 
 const App = () => {
   const { userProfile } = useContext(AuthContext);
+
+  if (userProfile?.trefleToken) {
+    getTrefflePlants(userProfile?.trefleToken);
+  }
+
+  // const [trefflePlants, setTrefflePlants] = useState<Partial<PlantModel[]>>([]);
+  // useEffect(() => {
+  //   if (userProfile) {
+  //     userToken = userProfile.trefleToken || "";
+  //     getTrefflePlants(userProfile.trefleToken);
+  //   }
+  // }, []);
 
   return (
     <div className="app">

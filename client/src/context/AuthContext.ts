@@ -22,6 +22,8 @@ const defaultValue: AuthContextModel = {
     profileDescription: "",
     profilePhotoUrl: "",
     location: "",
+    trefleToken: "",
+    trefleExpiration: "",
   },
   setUserProfile: () => {},
   userPlants: [],
