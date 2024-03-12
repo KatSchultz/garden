@@ -23,7 +23,9 @@ const Plants = ({ isUserPlants, userId = null, searchPlants }: PlantsProps) => {
   return (
     <div className="plants max-w-full">
       {searchPlants.map((plant) => (
-        <Plant plant={plant} />
+        <div key={plant.name_scientific}>
+          <Plant plant={plant} />
+        </div>
       ))}
     </div>
   );
