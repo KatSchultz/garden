@@ -2,17 +2,20 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "../Header/Header";
 import "./App.css";
 import Home from "../../pages/Home";
-import Search from "../Search/Search";
 import Profile from "../Profile/Profile";
 import Plants from "../Plants/Plants";
-import Plant from "../Plant/Plant";
 import NavMenu from "../NavMenu/NavMenu";
 import Login from "../Login/Login";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import AuthContext from "../../context/AuthContext";
+import { PlantModel } from "../../models/plant";
+import PlantPage from "../../pages/PlantPage";
+import SearchPage from "../../pages/SearchPage";
 
 const App = () => {
   const { userProfile } = useContext(AuthContext);
+  const [searchPlants, setSearchPlants] = useState<PlantModel[]>([]);
+  console.log(searchPlants);
 
   return (
     <div className="app">
@@ -23,12 +26,26 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/search" element={<Search />} />
             <Route
-              path="/plants"
-              element={<Plants isUserPlants={false} userId={null} />}
+              path="/search"
+              element={
+                <SearchPage
+                  setSearchPlants={setSearchPlants}
+                  searchPlants={searchPlants}
+                />
+              }
             />
-            <Route path="/plants/:id" element={<Plant />} />
+            {/* <Route
+              path="/plants"
+              element={
+                <Plants
+                  isUserPlants={false}
+                  userId={null}
+                  searchPlants={searchPlants}
+                />
+              }
+            /> */}
+            <Route path="/plants/:id" element={<PlantPage />} />
             <Route path="/users/:userId" element={<Profile />} />
 
             <Route
@@ -37,10 +54,11 @@ const App = () => {
                 <Plants
                   isUserPlants
                   userId={userProfile ? userProfile._id : ""}
+                  searchPlants={searchPlants}
                 />
               }
             />
-            <Route path="/users/:userId/plants/:id" element={<Plant />} />
+            <Route path="/users/:userId/plants/:id" element={<PlantPage />} />
           </Routes>
         </div>
       </Router>

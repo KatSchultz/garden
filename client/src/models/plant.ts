@@ -1,4 +1,4 @@
-export interface Plant {
+export interface PlantModel {
   _id: string;
   region: string[];
   name_scientific: string;
