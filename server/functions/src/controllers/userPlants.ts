@@ -10,6 +10,7 @@ export const postUserPlant: ReqRes = async (req, res) => {
     establishConnection();
     const userPlant = await userPlantModel.create(req.body);
     await userPlant.save();
+    console.log("userplant in post call", userPlant);
     res.status(201).send(userPlant);
   } catch (err) {
     res.status(401).send("Bad Request");

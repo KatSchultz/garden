@@ -3,17 +3,18 @@ import Header from "../Header/Header";
 import "./App.css";
 import Home from "../../pages/Home";
 import Profile from "../Profile/Profile";
-import Plants from "../Plants/Plants";
+// import Plants from "../Plants/Plants";
 import NavMenu from "../NavMenu/NavMenu";
 import Login from "../Login/Login";
-import { useContext, useState } from "react";
-import AuthContext from "../../context/AuthContext";
+import { useState } from "react";
+// import AuthContext from "../../context/AuthContext";
 import { PlantModel } from "../../models/plant";
 import PlantPage from "../../pages/PlantPage";
 import SearchPage from "../../pages/SearchPage";
+import UserPlantPage from "../../pages/UserPlantPage";
 
 const App = () => {
-  const { userProfile } = useContext(AuthContext);
+  // const { userProfile, userPlants } = useContext(AuthContext);
   const [searchPlants, setSearchPlants] = useState<PlantModel[]>([]);
   console.log(searchPlants);
 
@@ -48,16 +49,7 @@ const App = () => {
             <Route path="/plants/:id" element={<PlantPage />} />
             <Route path="/users/:userId" element={<Profile />} />
 
-            <Route
-              path="/users/:userId/plants"
-              element={
-                <Plants
-                  isUserPlants
-                  userId={userProfile ? userProfile._id : ""}
-                  searchPlants={searchPlants}
-                />
-              }
-            />
+            <Route path="/users/:userId/plants" element={<UserPlantPage />} />
             <Route path="/users/:userId/plants/:id" element={<PlantPage />} />
           </Routes>
         </div>

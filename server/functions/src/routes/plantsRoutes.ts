@@ -5,6 +5,7 @@ import {
   getPlant,
   getPlants,
   getPlantsByCriteria,
+  updatePlant,
   //   getPlantsByUid,
   //   updatePlant,
 } from "../controllers/plants";
@@ -17,10 +18,10 @@ plantRouter.route("/").get(getPlants).post(postPlant);
 
 plantRouter.route("/search").get(getPlantsByCriteria);
 
-plantRouter.route("/:id").get(getPlant);
+plantRouter.route("/:id").get(getPlant).patch(updatePlant);
 
 //   .get(getPlantsByUid)
-//   .patch(updatePlant)
+
 //   .delete(deletePlant);
 
 export default plantRouter;

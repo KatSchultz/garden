@@ -78,3 +78,22 @@ export const getPlant: ReqRes = async (req, res) => {
     res.status(status.code).send(status.message);
   }
 };
+
+export const updatePlant: ReqRes = async (req, res) => {
+  try {
+    establishConnection();
+    const id = req.params.id;
+    const data = req.body;
+    const updatedPlant = await plantModel.findByIdAndUpdate(id, data, {
+      new: true,
+    });
+    if (!updatePlant) throw new PlantNotFoundError();
+    res.status(200).send(updatedPlant);
+  } catch (err) {
+    let status = { code: 500, message: "Server Error" };
+    if (err instanceof PlantNotFoundError) {
+      status = { code: 404, message: err.message };
+    }
+    res.status(status.code).send(status.message);
+  }
+};

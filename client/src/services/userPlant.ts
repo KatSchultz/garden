@@ -10,6 +10,7 @@ export const addUserPlant = async (
     baseUrl + `/users/${userPlant.user_id}/plants`,
     userPlant
   );
+  console.log("new User Plant in addUserPlant", newUserPlant);
   return newUserPlant.data;
 };
 
