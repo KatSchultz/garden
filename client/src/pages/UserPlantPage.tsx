@@ -7,6 +7,7 @@ import { getPlant } from "../services/plants";
 const UserPlantPage = () => {
   const { userPlants } = useContext(AuthContext);
   const [plantList, setPlantList] = useState<PlantModel[]>([]);
+  console.log("userPlants: ", userPlants);
 
   useEffect(() => {
     const plants: PlantModel[] = [];
@@ -21,7 +22,8 @@ const UserPlantPage = () => {
           setPlantList(plants);
         });
     });
-  }, []);
+  }, [userPlants]);
+  console.log("plantList: ", plantList);
 
   return (
     <>

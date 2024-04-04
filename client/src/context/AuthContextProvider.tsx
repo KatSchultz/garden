@@ -5,6 +5,7 @@ import AuthContext from "./AuthContext";
 import { UserProfile } from "../models/user";
 import { getUserByUid } from "../services/user";
 import { UserPlant } from "../models/userPlant";
+import { getUserPlants } from "../services/userPlant";
 
 function AuthContextProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
@@ -19,6 +20,9 @@ function AuthContextProvider({ children }: { children: ReactNode }) {
       if (newUser) {
         getUserByUid(newUser.uid).then((data) => {
           setUserProfile(data);
+          getUserPlants(data._id || "").then((data) => {
+            setUserPlants(data);
+          });
         });
       }
     });

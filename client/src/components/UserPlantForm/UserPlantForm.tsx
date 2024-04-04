@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { UserPlant } from "../../models/userPlant";
 import { addUserPlant } from "../../services/userPlant";
+import { useNavigate } from "react-router-dom";
 
 interface UserPlantFormProps {
   plant_id: string;
@@ -8,6 +9,7 @@ interface UserPlantFormProps {
 }
 
 const UserPlantForm = ({ plant_id, user_id }: UserPlantFormProps) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<UserPlant>({
     user_id,
     plant_id,
@@ -30,6 +32,7 @@ const UserPlantForm = ({ plant_id, user_id }: UserPlantFormProps) => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    if (user_id === "") navigate("/login");
     console.log(formData);
     addUserPlant(formData);
     console.log("User Plant Saved");
